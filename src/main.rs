@@ -25,8 +25,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         })?;
 
     // .onion URL
-    let url =
-        "http://enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/dota/banners/1696118704046";
+    let url = "http://check.torproject.org/";
     println!("Attempting to connect to URL: {}", url);
 
     let mut attempts = 0;
