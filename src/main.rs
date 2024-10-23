@@ -9,7 +9,7 @@ const RETRY_DELAY: Duration = Duration::from_secs(5); // Delay between retry att
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     // Configure the proxy for Tor usage
-    let proxy = reqwest::Proxy::all("socks5://127.0.0.1:9051").map_err(|e| {
+    let proxy = reqwest::Proxy::all("socks5://127.0.0.1:9050").map_err(|e| {
         println!("Proxy configuration error: {:?}", e);
         Box::new(e) as Box<dyn Error>
     })?;
