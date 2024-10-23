@@ -18,6 +18,7 @@ This project demonstrates how to make HTTP GET requests to .onion sites through 
 
 1. **Install Rust:**
    If you haven't installed Rust yet, you can do so by following the instructions on the [official Rust website](https://www.rust-lang.org/tools/install).
+
    or
 
    ```bash
