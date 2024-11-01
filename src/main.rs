@@ -2,6 +2,7 @@ use reqwest::Client;
 use std::error::Error;
 use std::time::Duration;
 use tokio::time::sleep;
+use std::io::{self, Write};
 
 const MAX_RETRIES: usize = 3; // Maximum number of retry attempts
 const RETRY_DELAY: Duration = Duration::from_secs(5); // Delay between retry attempts
@@ -9,11 +10,21 @@ const RETRY_DELAY: Duration = Duration::from_secs(5); // Delay between retry att
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     // Configure the proxy for Tor usage
-    let proxy = reqwest::Proxy::all("socks5://127.0.0.1:9050").map_err(|e| {
+    let mut input = String::new();
+    print!("Please enter a port number (default is 9050 if left blank): ");
+    io::stdout().flush().unwrap();
+
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read input");
+    let input = input.trim().to_string();
+
+    let port = input.is_empty().then_some("9050").unwrap_or(&input);
+    
+    let proxy = reqwest::Proxy::all(format!("socks5://127.0.0.1:{}",port)).map_err(|e| {
         println!("Proxy configuration error: {:?}", e);
         Box::new(e) as Box<dyn Error>
     })?;
-
     // Create the HTTP client and set a 60-second timeout
     let client = Client::builder()
         .proxy(proxy)
